@@ -45,8 +45,8 @@ function toNumber (string) {
   return parseInt(numString);
 };
 
-console.log(toNumber('2023 год'));            // 2023
-console.log(toNumber('ECMAScript 2022'));     // 2022
-console.log(toNumber('1 кефир, 0.5 батона')); // 105
-console.log(toNumber('агент 007'));           // 7
-console.log(toNumber('а я томат'));           // NaN
+toNumber('2023 год');            // 2023
+toNumber('ECMAScript 2022');     // 2022
+toNumber('1 кефир, 0.5 батона'); // 105
+toNumber('агент 007');           // 7
+toNumber('а я томат');           // NaN

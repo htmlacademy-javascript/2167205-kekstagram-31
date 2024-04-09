@@ -7,4 +7,6 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (element) => element[getRandomInteger(0, element.length - 1)];
 
-export {getRandomInteger, getRandomArrayElement};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, getRandomArrayElement, isEscapeKey};

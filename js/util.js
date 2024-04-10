@@ -7,4 +7,28 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (element) => element[getRandomInteger(0, element.length - 1)];
 
-export {getRandomInteger, getRandomArrayElement};
+const craeteUniqueId = (min,max) => {
+  const previousValues = [];
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+};
+
+const generateCountOfPhoto = () => {
+  let count = 0;
+  return function () {
+    return ++count;
+  };
+};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomInteger, getRandomArrayElement, craeteUniqueId, generateCountOfPhoto, isEscapeKey};

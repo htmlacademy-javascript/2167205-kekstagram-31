@@ -1,4 +1,4 @@
-import {getRandomInteger, getRandomArrayElement} from './util.js';
+import { getRandomInteger, getRandomArrayElement, craeteUniqueId, generateCountOfPhoto } from './util.js';
 
 const DESCRIPTION = [
   'Если меня поставят перед выбором: пиво или душа, я сначала поинтересуюсь какое пиво - (с) Джейсон Стетхем.',
@@ -47,33 +47,25 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const createComment = () => {
-  const getRandomCommentId = getRandomInteger(1, 999);
-  const getRandomAvatar = getRandomInteger(1, 6);
+const generateId = generateCountOfPhoto();
+const generatePhotoId = generateCountOfPhoto();
+const generateCommentId = craeteUniqueId(0, 30);
 
-  return {
-    id: getRandomCommentId,
-    avatr: `img/avatar-${getRandomAvatar}.svg`,
-    message: getRandomArrayElement(MESSAGE),
-    name: getRandomArrayElement(NAME),
-  };
-};
+const createComment = () => ({
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandomInteger}.svg`,
+  message: `${getRandomArrayElement(MESSAGE)}`,
+  name: `${getRandomArrayElement(NAME)}`,
+});
 
-const createPost = () => {
-  const getRandomId = getRandomInteger(1, 25);
-  const getRandomPhoto = getRandomId;
-  const getRandomLikes = getRandomInteger(12, 200);
-  const comment = Array.from({ length: getRandomInteger(0, 30) }, createComment);
+const createPost = () => ({
+  id: generateId(),
+  url: `photos/${generatePhotoId()}.jpg`,
+  description: `${getRandomArrayElement(DESCRIPTION)}`,
+  likes: `${getRandomInteger(15, 200)}`,
+  comments: Array.from({length: getRandomInteger(0, 30)}, createComment),
+});
 
-  return {
-    id: getRandomId,
-    url: `photos/${getRandomPhoto}.jpg`,
-    description: getRandomArrayElement(DESCRIPTION),
-    likes: getRandomLikes,
-    comments: comment,
-  };
-};
+const posting = () => Array.from({ length: 25 }, createPost);
 
-const posting = () => Array.from({ length: 25}, createPost);
-
-export {posting};
+export { posting };

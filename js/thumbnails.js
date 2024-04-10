@@ -1,18 +1,36 @@
-import { posting } from './data.js';
+import { openBigPicture } from './post-modal.js';
 
-const thumbnails = document.querySelector('.pictures');
+const thumbnailsContainer = document.querySelector('.pictures');
 const thumbnail = document.querySelector('#picture').content.querySelector('.picture');
+const localData = [];
 
-const createThumbnail = posting();
-const fragment = document.createDocumentFragment();
+const setData = (photos) => {
+  localData.length = 0;
+  localData.push(...photos);
+};
 
-createThumbnail.forEach((post) => {
-  const createElement = thumbnail.cloneNode(true);
-  createElement.querySelector('.picture__img').src = post.url;
-  createElement.querySelector('.picture__img').alt = post.description;
-  createElement.querySelector('.picture__comments').textContent = post.comments;
-  createElement.querySelector('.picture__likes').textContent = post.likes;
-  fragment.appendChild(createElement);
+const renderPhotos = (data) => {
+  setData(data);
+  const fragment = document.createDocumentFragment();
+  data.forEach(({id, url, description, comments, likes}) => {
+    const createElement = thumbnail.cloneNode(true);
+    createElement.dataset.pictureId = id;
+    createElement.querySelector('.picture__img').src = url;
+    createElement.querySelector('.picture__img').alt = description;
+    createElement.querySelector('.picture__comments').textContent = comments.length;
+    createElement.querySelector('.picture__likes').textContent = likes;
+    fragment.appendChild(createElement);
+  });
+  thumbnailsContainer.appendChild(fragment);
+};
+
+thumbnailsContainer.addEventListener ('click', (evt) => {
+  const currentPicture = evt.target.closest('.picture');
+  if (currentPicture) {
+    const currentPhoto = localData.find((photo) => Number(photo.id) === Number(currentPicture.dataset.pictureId));
+    openBigPicture(currentPhoto);
+  }
 });
 
-thumbnails.appendChild(fragment);
+export { renderPhotos };
+

@@ -6,7 +6,7 @@ const DESCRIPTION = [
   'Порой я на верном пути к правильному выводу, но я прохожу мимо - (с) Альберт Эйнштейн.',
   'Всегда думай о том, чего хочешь, но не думай о том, чего не хочешь - (с) Фридрих Ницше.',
   'Это мой последний заезд - (с) Доминик Торетто.',
-  'Если выбор между камнем ножницами и бумагой, я всегда выбераю камень - (с) Дуэйн \"Скала\" Джонсон',
+  'Если выбор между камнем ножницами и бумагой, я всегда выбераю камень - (с) Дуэйн Джонсон',
   'Дошик готовится три минуты, а я готов всегда - (c) Стивен Сигал'
 ];
 
@@ -53,7 +53,7 @@ const generateCommentId = craeteUniqueId(0, 30);
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${getRandomInteger}.svg`,
+  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: `${getRandomArrayElement(MESSAGE)}`,
   name: `${getRandomArrayElement(NAME)}`,
 });

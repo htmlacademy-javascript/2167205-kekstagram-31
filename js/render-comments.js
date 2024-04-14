@@ -4,7 +4,7 @@ let comments = [];
 let currentCount = 0;
 const step = 5;
 
-const renderNextComments = () => {
+const renderCommentsContent = () => {
   const fragment = document.createDocumentFragment();
   const renderedComments = comments.slice(currentCount, currentCount + step);
 
@@ -12,15 +12,17 @@ const renderNextComments = () => {
     const commentElementClone = commentElement.cloneNode(true);
 
     commentElementClone.querySelector('.social__picture').src = avatar;
-    commentElementClone.querySelector('.social__picture').alr = name;
+    commentElementClone.querySelector('.social__picture').alt = name;
     commentElementClone.querySelector('.social__text').textContent = message;
 
     fragment.appendChild(commentElementClone);
     currentCount++;
-
   });
-
   commentsContainer.appendChild(fragment);
+};
+
+const renderNextComments = () => {
+  renderCommentsContent();
 
   visibleComments.textContent = currentCount;
 
@@ -28,7 +30,6 @@ const renderNextComments = () => {
     commentsLoader.classList.add('hidden');
   }
 
-  currentCount += step;
 };
 
 const clearComments = () => {

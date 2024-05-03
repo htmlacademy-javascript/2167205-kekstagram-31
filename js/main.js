@@ -7,3 +7,4 @@ renderPhotos(data);
 
 import './form.js';
 import './validation.js';
+import './image-redactor.js';

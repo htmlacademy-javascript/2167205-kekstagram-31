@@ -54,9 +54,9 @@ const sliderValue = imageUploadform.querySelector('.effect-level__value');
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
-    max: 100,
+    max: 1,
   },
-  start: 0,
-  step: 1,
+  start: 1,
+  step: 0.1,
   connect: 'lower',
 });

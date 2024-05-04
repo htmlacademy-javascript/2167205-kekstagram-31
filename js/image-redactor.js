@@ -1,4 +1,3 @@
-import { Connect } from 'vite';
 import { imageUploadform } from './form.js';
 
 const scale = imageUploadform.querySelector('.scale');
@@ -40,23 +39,100 @@ toScaleImage();
 /* Наложение эффекта на картинку */
 
 const effects = {
-  'chrome' : 'grayscale(value)', /* с шагом 0.1; 0-1 */
-  'sepia' : 'sepia(value)', /* с шагом 0.1;  0-1*/
-  'marvin' : 'invert(value%)', /* с шагом 1%; 0-100% */
-  'phobos' : 'blur(valuepx)', /* с шагом 0.1px; 0-3px */
-  'heart' : 'brightness(value)', /* с шагом 0.1; 1-3px */
+  'chrome': 'grayscale(value)', /* с шагом 0.1; 0-1 */
+  'sepia': 'sepia(value)', /* с шагом 0.1;  0-1*/
+  'marvin': 'invert(value%)', /* с шагом 1%; 0-100% */
+  'phobos': 'blur(valuepx)', /* с шагом 0.1px; 0-3px */
+  'heat': 'brightness(value)', /* с шагом 0.1; 1-3px */
 };
 
+let selectedEffect = 'none';
 
 const sliderElement = imageUploadform.querySelector('.effect-level__slider');
-const sliderValue = imageUploadform.querySelector('.effect-level__value');
+const sliderValueElement = imageUploadform.querySelector('.effect-level__value');
+const effectsList = imageUploadform.querySelector('.effects__list');
+
+sliderValueElement.value = 0.1;
 
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
     max: 1,
   },
-  start: 1,
+  start: 0.1,
   step: 0.1,
   connect: 'lower',
 });
+
+
+sliderElement.noUiSlider.on('update', () => {
+  sliderValueElement.value = sliderElement.noUiSlider.get();
+  if (selectedEffect === 'none') {
+    /* sliderElement.noUiSlider.destroy(); */
+    sliderElement.classList.add('hidden');
+  } else {
+    sliderElement.classList.remove('hidden');
+    /* задать выбранный фильтр и выставленное значение на слайдере */
+    imagePreview.style.filter = effects[selectedEffect].replace('value', sliderValueElement.value);
+  }
+});
+
+effectsList.addEventListener('change', (evt) => {
+  selectedEffect = evt.target.value;
+  switch (selectedEffect) {
+    case 'none':
+      sliderElement.classList.add('hidden');
+      imagePreview.style.filter = '';
+      break;
+    case 'chrome':
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 1,
+        },
+        start: 0.1,
+        step: 0.1,
+      });
+      break;
+    case 'sepia':
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 1,
+        },
+        start: 0.1,
+        step: 0.1,
+      });
+      break;
+    case 'marvin':
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 100,
+        },
+        start: 1,
+        step: 1,
+      });
+      break;
+    case 'phobos':
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 3,
+        },
+        start: 0.1,
+        step: 0.1,
+      });
+      break;
+    case 'heat':
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 1,
+          max: 3,
+        },
+        start: 0.1,
+        step: 0.1,
+      });
+  }
+});
+

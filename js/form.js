@@ -6,7 +6,7 @@ const imageUploadform = document.querySelector('.img-upload__form');
 const photoEditor = document.querySelector('.img-upload__overlay');
 const closeButton = photoEditor.querySelector('.img-upload__cancel');
 const fileInputElement = imageUploadform.querySelector('.img-upload__input');
-const uploadButton = document.querySelector('.img-upload__control');
+/* const uploadButton = document.querySelector('.img-upload__control'); */
 const hashtagValueElement = imageUploadform.querySelector('.text__hashtags');
 const commentValueElement = imageUploadform.querySelector('.text__description');
 
